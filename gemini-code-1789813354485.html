@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="gold">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Primary Meta Tags -->
+  <title>Nepal Projection | Luxury Customized House Interior Design</title>
+  <meta name="title" content="Nepal Projection | Luxury Customized House Interior Design">
+  <meta name="description" content="Nepal Projection offers bespoke, high-end customized house interior design, 3D architectural walkthroughs, and spatial planning tailored to your exact budget across Nepal.">
+  <meta name="keywords" content="Nepal Projection, Interior Design Nepal, Customized Interior, Luxury House Design, Budget Interior Design, 3D Walkthrough Nepal">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Nepal Projection">
+  <meta name="theme-color" content="#05070B">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://nepalprojection.com">
+
+  <!-- Open Graph / Facebook / WhatsApp SEO -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nepalprojection.com/">
+  <meta property="og:title" content="Nepal Projection | Luxury Customized House Interior Design">
+  <meta property="og:description" content="Transforming architectural spaces across Nepal with luxury spatial planning, 3D floor walkthroughs, and custom budgets.">
+  <meta property="og:image" content="./00db1ab3-9a10-4ad0-812d-56de8f7a51f3.jpg">
+
+  <!-- Twitter Card SEO -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Nepal Projection | Luxury Customized House Interior Design">
+  <meta property="twitter:description" content="Bespoke luxury interior designs customized to your floor specifications and budget.">
+  <meta property="twitter:image" content="./00db1ab3-9a10-4ad0-812d-56de8f7a51f3.jpg">
+
+  <!-- Structured Data / JSON-LD for Search Engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Nepal Projection",
+    "image": "00db1ab3-9a10-4ad0-812d-56de8f7a51f3.jpg",
+    "description": "Bespoke luxury interior design, 3D walkthroughs, and customized home planning across Nepal.",
+    "email": "baibhavthakur.po@gmail.com",
+    "priceRange": "$500 - $15000",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "NP"
+    }
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js for Background 3D Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* CSS COLOR THEME VARIABLES */
+    :root[data-theme="gold"] {
+      --primary: #D4AF37;
+      --primary-light: #F3E5AB;
+      --primary-dark: #AA7C11;
+      --accent-glow: rgba(212, 175, 55, 0.35);
+      --text-gradient: linear-gradient(90deg, #D4AF37 0%, #FFF 25%, #F3E5AB 50%, #AA7C11 75%, #D4AF37 100%);
+    }
+
+    :root[data-theme="neon"] {
+      --primary: #00F0FF;
+      --primary-light: #70F8FF;
+      --primary-dark: #008B99;
+      --accent-glow: rgba(0, 240, 255, 0.4);
+      --text-gradient: linear-gradient(90deg, #00F0FF 0%, #FFF 25%, #70F8FF 50%, #008B99 75%, #00F0FF 100%);
+    }
+
+    :root[data-theme="emerald"] {
+      --primary: #10B981;
+      --primary-light: #6EE7B7;
+      --primary-dark: #047857;
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --text-gradient: linear-gradient(90deg, #10B981 0%, #FFF 25%, #6EE7B7 50%, #047857 75%, #10B981 100%);
+    }
+
+    :root[data-theme="rosegold"] {
+      --primary: #B76E79;
+      --primary-light: #FFD1D7;
+      --primary-dark: #8C434E;
+      --accent-glow: rgba(183, 110, 121, 0.4);
+      --text-gradient: linear-gradient(90deg, #B76E79 0%, #FFF 25%, #FFD1D7 50%, #8C434E 75%, #B76E79 100%);
+    }
+
+    /* 3D Canvas Background */
+    #three-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Particle Background */
+    .particle-bg {
+      background: radial-gradient(circle at 50% 50%, rgba(10, 15, 25, 0.8) 0%, rgba(5, 7, 11, 0.98) 100%);
+    }
+
+    /* SHIMMER & GLOW ANIMATIONS */
+    @keyframes textShimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes textPulseGlow {
+      0%, 100% { text-shadow: 0 0 15px var(--accent-glow); }
+      50% { text-shadow: 0 0 35px var(--primary); }
+    }
+
+    .animated-theme-text {
+      background: var(--text-gradient);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      animation: textShimmer 4s linear infinite, textPulseGlow 3s ease-in-out infinite;
+    }
+
+    /* OPTIMIZED FONT ENTRANCE ANIMATIONS */
+    @keyframes fontEntranceUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+        filter: blur(6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .font-entry-1 {
+      animation: fontEntranceUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .font-entry-2 {
+      animation: fontEntranceUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .font-entry-3 {
+      animation: fontEntranceUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* Glassmorphism Styling */
+    .glass-card {
+      background: rgba(17, 24, 39, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--accent-glow);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .glass-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px 0 var(--accent-glow);
+    }
+
+    /* Dynamic Theme CSS Classes */
+    .theme-border { border-color: var(--primary) !important; }
+    .theme-bg-button { 
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
+      color: #000;
+    }
+    .theme-bg-button:hover {
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+    .theme-text { color: var(--primary) !important; }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-100 relative min-h-screen overflow-x-hidden particle-bg">
+
+  <!-- Interactive 3D Canvas Background -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 w-full z-50 glass-card border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+      
+      <!-- Brand Logo Header -->
+      <a href="#" class="flex items-center gap-3">
+        <img src="00db1ab3-9a10-4ad0-812d-56de8f7a51f3.jpg" alt="Nepal Projection Logo" class="h-10 w-auto rounded border theme-border shadow-sm" onerror="this.style.display='none'">
+        <span class="font-serif text-lg sm:text-xl font-extrabold tracking-widest animated-theme-text font-entry-1">NEPAL PROJECTION</span>
+      </a>
+
+      <!-- Controls & Navigation -->
+      <div class="flex items-center space-x-4 sm:space-x-8 text-sm font-medium">
+        
+        <!-- Theme Switcher Selector -->
+        <div class="flex items-center gap-2 bg-black/60 px-3 py-1.5 rounded-full border border-white/10">
+          <span class="text-xs text-gray-400 font-bold hidden sm:inline">THEME:</span>
+          <button onclick="setTheme('gold')" title="Gold Theme" class="w-5 h-5 rounded-full bg-[#D4AF37] hover:scale-125 transition-transform ring-1 ring-white/20"></button>
+          <button onclick="setTheme('neon')" title="Cyber Neon Theme" class="w-5 h-5 rounded-full bg-[#00F0FF] hover:scale-125 transition-transform ring-1 ring-white/20"></button>
+          <button onclick="setTheme('emerald')" title="Royal Emerald Theme" class="w-5 h-5 rounded-full bg-[#10B981] hover:scale-125 transition-transform ring-1 ring-white/20"></button>
+          <button onclick="setTheme('rosegold')" title="Rose Gold Theme" class="w-5 h-5 rounded-full bg-[#B76E79] hover:scale-125 transition-transform ring-1 ring-white/20"></button>
+        </div>
+
+        <a href="#plans" class="hidden md:inline hover:text-white transition-colors">Packages</a>
+        <a href="#place-order" class="px-5 py-2 rounded-full theme-bg-button font-extrabold tracking-wider transition-all transform hover:scale-105">Place Order</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero / Welcome Section -->
+  <section class="pt-36 pb-20 px-6 max-w-7xl mx-auto min-h-screen flex flex-col justify-center items-center text-center">
+    
+    <!-- Hero Video Logo Animation Container -->
+    <div class="relative w-full max-w-md mx-auto mb-8 rounded-3xl overflow-hidden glass-card p-3 border-white/20 font-entry-1">
+      <video id="heroLogoVideo" autoplay loop muted playsinline poster="00db1ab3-9a10-4ad0-812d-56de8f7a51f3.jpg" class="w-full h-auto rounded-2xl object-cover">
+        <source src="Cube_logo_animation_assembling_202609091036.mp4" type="video/mp4">
+        <!-- Fallback Image if video is unsupported -->
+        <img id="heroLogoFallback" src="00db1ab3-9a10-4ad0-812d-56de8f7a51f3.jpg" alt="Nepal Projection Logo" class="w-full h-auto rounded-2xl">
+      </video>
+    </div>
+
+    <!-- Animated Headlines with Font Entry Animations -->
+    <div>
+      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-black tracking-tight mb-6 leading-tight font-entry-2">
+        Customized House Interior <br>
+        <span class="animated-theme-text">In Your Budget</span>
+      </h1>
+      <p class="max-w-2xl mx-auto text-gray-300 text-base sm:text-xl font-light leading-relaxed mb-10 font-entry-3">
+        Transforming architectural spaces across Nepal with luxury spatial planning, 3D floor walkthroughs, and custom budgets.
+      </p>
+
+      <a href="#place-order" class="inline-flex items-center gap-3 px-8 py-4 rounded-full theme-bg-button font-extrabold text-lg shadow-xl hover:scale-105 transition-all font-entry-3">
+        <span>Place Order Now</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Interior Pricing Packages -->
+  <section id="plans" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-serif text-3xl sm:text-5xl font-bold mb-4">Design Packages</h2>
+      <p class="theme-text uppercase tracking-widest text-xs font-bold">Customized Interior Options</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Plan 1 -->
+      <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-widest theme-text font-bold">1 Floor Plan</span>
+          <h3 class="font-serif text-2xl font-bold mt-2 mb-2">Single Floor</h3>
+          <p class="text-gray-400 text-xs mb-6">Ideal for apartments and single-story houses.</p>
+          <div class="text-4xl font-black animated-theme-text mb-6">$500</div>
+          <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-white/10 pt-6">
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Full 1-Floor Custom Interior</li>
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Material & Color Selection</li>
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Interactive 3D Walkthrough Asset</li>
+          </ul>
+        </div>
+        <a href="#place-order" onclick="selectPlan('$500 - 1 Floor')" class="w-full py-3.5 rounded-xl border border-white/20 text-center theme-text hover:bg-white/10 font-bold transition-all">Select Plan</a>
+      </div>
+
+      <!-- Plan 2 (Featured) -->
+      <div class="glass-card rounded-3xl p-8 flex flex-col justify-between relative transform md:-translate-y-4 border-white/40 shadow-2xl">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 theme-bg-button text-xs font-black uppercase rounded-full tracking-wider shadow-lg">Most Popular</div>
+        <div>
+          <span class="text-xs uppercase tracking-widest theme-text font-bold">3 Floor Plan</span>
+          <h3 class="font-serif text-2xl font-bold mt-2 mb-2">3 Floor Residence</h3>
+          <p class="text-gray-400 text-xs mb-6">Complete multi-story residential customization.</p>
+          <div class="text-4xl font-black animated-theme-text mb-6">$5,000</div>
+          <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-white/10 pt-6">
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> 3 Complete Floors Custom Design</li>
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Premium Furniture & Lighting Setup</li>
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Full HD 3D Walkthrough Export</li>
+          </ul>
+        </div>
+        <a href="#place-order" onclick="selectPlan('$5,000 - 3 Floors')" class="w-full py-3.5 rounded-xl theme-bg-button text-center font-extrabold shadow-lg hover:scale-102 transition-all">Select Plan</a>
+      </div>
+
+      <!-- Plan 3 -->
+      <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+        <div>
+          <span class="text-xs uppercase tracking-widest theme-text font-bold">Building Plan</span>
+          <h3 class="font-serif text-2xl font-bold mt-2 mb-2">Full Building</h3>
+          <p class="text-gray-400 text-xs mb-6">Commercial or large estate interior execution.</p>
+          <div class="text-4xl font-black animated-theme-text mb-6">$15,000</div>
+          <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-white/10 pt-6">
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Complete Building Interior Planning</li>
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Bespoke Luxury Materials</li>
+            <li class="flex items-center gap-3"><span class="theme-text font-bold">✓</span> Dedicated On-Site Project Lead</li>
+          </ul>
+        </div>
+        <a href="#place-order" onclick="selectPlan('$15,000 - Full Building')" class="w-full py-3.5 rounded-xl border border-white/20 text-center theme-text hover:bg-white/10 font-bold transition-all">Select Plan</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Place Order Application Form (Automated) -->
+  <section id="place-order" class="py-20 px-6 max-w-4xl mx-auto">
+    <div class="glass-card rounded-3xl p-8 sm:p-12">
+      <div class="text-center mb-10">
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-2">Place Order Application</h2>
+        <p class="text-gray-400 text-sm">Applications are dispatched directly to <span class="theme-text font-semibold">baibhavthakur.po@gmail.com</span>.</p>
+      </div>
+
+      <!-- Automated Form -->
+      <form id="orderForm" action="https://formspree.io/f/baibhavthakur.po@gmail.com" method="POST" class="space-y-6">
+        <input type="hidden" name="_subject" value="New Interior Order Application - Nepal Projection">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <!-- Full Name -->
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-gray-300 mb-2 font-bold">Full Name *</label>
+            <input type="text" name="Full Name" required placeholder="Baibhav Thakur" class="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors">
+          </div>
+
+          <!-- Email Address -->
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-gray-300 mb-2 font-bold">Your Email Address *</label>
+            <input type="email" name="Client Email" required placeholder="baibhavthakur.po@gmail.com" class="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors">
+          </div>
+        </div>
+
+        <!-- Multiple Choice Floors -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-gray-300 mb-2 font-bold">Select Floors / Package *</label>
+          <select id="floorSelect" name="Floors Selection" required class="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-white transition-colors">
+            <option value="" disabled selected>-- Select Your Floor Budget --</option>
+            <option value="$500 - 1 Floor">$500 — 1 Floor Interior</option>
+            <option value="$5,000 - 3 Floors">$5,000 — 3 Floor Interior</option>
+            <option value="$15,000 - Full Building">$15,000 — Complete Building Interior</option>
+            <option value="Custom Budget / Custom Floors">Custom Floor Configuration</option>
+          </select>
+        </div>
+
+        <!-- Interior Description -->
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-gray-300 mb-2 font-bold">Describing Interior Requirements *</label>
+          <textarea name="Interior Requirements Description" rows="4" required placeholder="Provide details about your house style preferences, specific rooms, dimensions, or custom budget requests..." class="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl theme-bg-button font-extrabold text-lg shadow-xl hover:scale-101 transition-all">
+          Submit Order Application
+        </button>
+
+        <!-- Dynamic Success / Error Response Box -->
+        <div id="formStatus" class="hidden p-4 rounded-xl text-center text-sm font-bold"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-8 px-6 text-center text-xs text-gray-500">
+    <p>© 2026 Nepal Projection. All rights reserved. | Official Contact: baibhavthakur.po@gmail.com</p>
+  </footer>
+
+  <!-- Automation, Three.js Background & Theme Controller Scripts -->
+  <script>
+    // GitHub Video Path Autoplay Robustness
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('heroLogoVideo');
+      if (video) {
+        video.play().catch(error => {
+          console.warn("Autoplay deferred or blocked by browser:", error);
+        });
+      }
+    });
+
+    // Theme Switcher Functionality
+    function setTheme(themeName) {
+      document.documentElement.setAttribute('data-theme', themeName);
+      
+      const themeColors = {
+        gold: 0xD4AF37,
+        neon: 0x00F0FF,
+        emerald: 0x10B981,
+        rosegold: 0xB76E79
+      };
+      
+      if (wireframeMaterial) {
+        wireframeMaterial.color.setHex(themeColors[themeName] || 0xD4AF37);
+      }
+    }
+
+    // Three.js 3D Interactive Background Setup
+    const canvas = document.getElementById('three-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const geometry = new THREE.IcosahedronGeometry(2, 1);
+    let wireframeMaterial = new THREE.MeshBasicMaterial({
+      color: 0xD4AF37,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.18
+    });
+
+    const cubes = [];
+    for (let i = 0; i < 22; i++) {
+      const mesh = new THREE.Mesh(geometry, wireframeMaterial);
+      mesh.position.x = (Math.random() - 0.5) * 32;
+      mesh.position.y = (Math.random() - 0.5) * 32;
+      mesh.position.z = (Math.random() - 0.5) * 32;
+      mesh.rotation.x = Math.random() * Math.PI;
+      mesh.rotation.y = Math.random() * Math.PI;
+      scene.add(mesh);
+      cubes.push(mesh);
+    }
+
+    camera.position.z = 15;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      cubes.forEach((cube) => {
+        cube.rotation.x += 0.0025;
+        cube.rotation.y += 0.0035;
+      });
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    function selectPlan(planText) {
+      const selectElem = document.getElementById('floorSelect');
+      for (let i = 0; i < selectElem.options.length; i++) {
+        if (selectElem.options[i].value.includes(planText.split(' ')[0])) {
+          selectElem.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+    // Automated Background Form Submission (AJAX)
+    const form = document.getElementById("orderForm");
+    const formStatus = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Dispatching Application...";
+
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          formStatus.className = "p-4 rounded-xl text-center text-sm font-bold bg-green-500/20 text-green-300 border border-green-500/40";
+          formStatus.innerText = "✓ Application Dispatched Successfully to baibhavthakur.po@gmail.com!";
+          formStatus.classList.remove("hidden");
+          form.reset();
+        } else {
+          throw new Error("Form submission error");
+        }
+      } catch (err) {
+        formStatus.className = "p-4 rounded-xl text-center text-sm font-bold bg-red-500/20 text-red-300 border border-red-500/40";
+        formStatus.innerText = "✕ Submission failed. Please verify connection and try again.";
+        formStatus.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Submit Order Application";
+      }
+    });
+  </script>
+</body>
+</html>
